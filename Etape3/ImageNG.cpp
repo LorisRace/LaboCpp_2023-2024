@@ -129,6 +129,8 @@ void ImageNG :: setBackground(int val)
   }
 }
 
+
+
 void ImageNG ::Affiche() const
 {
 	  cout << "id : " <<id<< endl;
