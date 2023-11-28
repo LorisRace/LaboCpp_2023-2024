@@ -2,23 +2,21 @@
 #include "MyQT.h"
 #include <iostream>
 
-ImageNG :: ImageNG()
+ImageNG :: ImageNG() : Image()
 {
-	  nom = NULL;
-    setNom ("Default");
-    setId (1);
     setBackground(0);
 }
 
-ImageNG ::ImageNG (int Id, const char *Nom)
+ImageNG ::ImageNG (int Id, const char *Nom): Image()
 {
-    nom = NULL;
-    setNom (Nom);
-    setId (Id);
+    
+    setBackground(0);
+
 }
 
 ImageNG ::ImageNG (int Id, const char *Nom,const Dimension& d)
 {
+  
     nom = NULL;
     setNom (Nom);
     setId (Id);
@@ -34,17 +32,15 @@ ImageNG ::ImageNG (const char* fichier)
   MyQT::ImportFromFile(*this, fichier);
 }
 
-ImageNG ::ImageNG (const ImageNG &Image)
+ImageNG ::ImageNG (const ImageNG &image) : Image(image)
 {
-  nom = NULL;
-    setId (Image.getId());
-    setNom (Image.getNom());
-    setDimension (Image.getDimension());
+  
+    setDimension (image.getDimension());
 
     for(int i = 0; i< dimension.getLargeur(); i++)
   {
     for (int j = 0; j< dimension.getHauteur(); j++)
-      matrice[i][j]= Image.matrice[i][j];
+      matrice[i][j]= image.matrice[i][j];
   }
 
 
@@ -57,53 +53,29 @@ ImageNG :: ~ImageNG()
         delete nom;
 }
 
-int ImageNG :: getId() const
+void ImageNG ::Affiche() const
 {
-	return id;
+  cout << "id : " <<id<< endl;
+    cout << "nom : "<<nom<< endl;
+    dimension.Affiche();
 }
 
-void ImageNG :: setId (int val)
+void ImageNG::exportToFile(const char* fichier,const char* format)
 {
-
-	if (val >= 0)
-      
-        id = val;
-      
-	
-}
-
-const char * ImageNG :: getNom() const
-{
-  return nom;
-}
-
-void ImageNG :: setNom (const char *n)
-{
-
-	if (nom)
-        delete nom;
-      nom = new char [strlen(n)+1];
-      if (strlen(n)== 0)
-      {
-        return;
-      }
-
-      strcpy (nom, n);
-
+  MyQT::ExportToFile (*this, fichier, format);
 }
 
 
-Dimension ImageNG::getDimension() const
+void ImageNG::Dessine() const
 {
-  return dimension;
+
+  MyQT::ViewImage(*this);
+
 }
 
-void ImageNG::setDimension(const Dimension& d)
+void ImageNG :: importFromFile(const char* fichier)
 {
-  dimension.setLargeur(d.getLargeur());
-
-  dimension.setHauteur(d.getHauteur());
-    
+  MyQT::ImportFromFile(*this, fichier);
 }
 
 int ImageNG :: getPixel(int x, int y) const
@@ -184,32 +156,6 @@ int ImageNG :: getMaximum()const
 float ImageNG :: getContraste()const
 {
     return (float)(getMaximum() - getMinimum()) / (float)(getMaximum() + getMinimum());
-}
-
-void ImageNG ::Affiche() const
-{
-	  cout << "id : " <<id<< endl;
-    cout << "nom : "<<nom<< endl;
-    dimension.Affiche();
-}
-
-
-void ImageNG :: importFromFile(const char* fichier)
-{
-  MyQT::ImportFromFile(*this, fichier);
-}
-
-void ImageNG :: exportToFile(const char* fichier,const char* format)
-{
-  MyQT::ExportToFile (*this, fichier, format);
-}
-
-
-void ImageNG :: Dessine() const
-{
-
-  MyQT::ViewImage(*this);
-
 }
 
 ImageNG& ImageNG:: operator= (const ImageNG &image)
@@ -293,7 +239,7 @@ ImageNG operator-(int Nombre_Entier, ImageNG image)
 
 ImageNG operator++(ImageNG image)
 {
-  return image = image + 20;
+  return image++;
 }
 
 ImageNG ImageNG :: operator++(int)
@@ -307,7 +253,7 @@ ImageNG ImageNG :: operator++(int)
   {
     for (int j = 0; j < temp.dimension.getHauteur(); j++)
     {
-      temp.matrice[i][j] = temp.matrice[i][j] + 20;
+      temp.matrice[i][j]++;
 
       if(temp.matrice[i][j] > 255)
         temp.matrice[i][j] = 255;
@@ -325,7 +271,7 @@ ImageNG ImageNG :: operator++(int)
 
 ImageNG operator--(ImageNG image)
 {
-  return image = image -20;
+  return image--;
 }
 
 ImageNG ImageNG :: operator--(int)
@@ -339,7 +285,7 @@ ImageNG ImageNG :: operator--(int)
   {
     for (int j = 0; j < temp.dimension.getHauteur(); j++)
     {
-      temp.matrice[i][j] = temp.matrice[i][j] - 20;
+      temp.matrice[i][j]--;
 
 
     }
@@ -381,11 +327,12 @@ bool ImageNG :: operator<(const ImageNG &image)
   for (int i = 0; i < dimension.getLargeur(); i++)
     for (int j = 0; j < dimension.getHauteur(); j++)
     {
-      if(matrice[i][j] >= image.matrice[i][j])
-        return false;
+      SommeThis = SommeThis + matrice[i][j];
+
+      SommeCopie = SommeCopie + image.matrice[i][j];
     }
 
-    return true;
+    return SommeThis < SommeCopie;
 }
 
 bool ImageNG :: operator>(const ImageNG &image)
@@ -396,9 +343,10 @@ bool ImageNG :: operator>(const ImageNG &image)
   for (int i = 0; i < dimension.getLargeur(); i++)
     for (int j = 0; j < dimension.getHauteur(); j++)
     {
-      if(matrice[i][j] <= image.matrice[i][j])
-        return false;
+      SommeThis = SommeThis + matrice[i][j];
+
+      SommeCopie = SommeCopie + image.matrice[i][j];
     }
 
-    return true;
+    return SommeThis > SommeCopie;
 }
