@@ -28,11 +28,11 @@
 	void Dimension :: setLargeur (int Val) 
 	{
 		
-		if (Val < 0 || Val > 255)
+		if (Val <= 0)
+			throw XYException("\nLargeur invalide !", Val);
 			return;
-			//throw XYException("\nLargeur invalide !", Val);
 
-		if(Val >= 0)
+		if(Val > 0)
 			Largeur = Val;
 
 		
@@ -48,16 +48,13 @@
 	void Dimension :: setHauteur (int Val) 
 	{
 		
-		if (Val < 0 || Val > 255)
+		if (Val <= 0)
+			throw XYException("\nLargeur invalide !", Val);
 			return;
-			//throw XYException("\nLargeur invalide !", Val);
 		
 
-		if(Val >= 0)
+		if(Val > 0)
 			Hauteur = Val;
-
-
-		
 
 		
 	}

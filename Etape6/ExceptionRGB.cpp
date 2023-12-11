@@ -9,11 +9,13 @@ RGBException :: RGBException() : Exception()
 RGBException :: RGBException(const string& message, int valeur) : Exception(message)
 {
 	setMessage(message);
+
+	setValeur(valeur);
 }
 
 RGBException :: RGBException(const RGBException &rgbexception) : Exception(rgbexception)
 {
-
+	setValeur(rgbexception.getValeur());
 }
 
 RGBException :: ~RGBException()
@@ -23,7 +25,7 @@ RGBException :: ~RGBException()
 
 void RGBException :: setValeur(int valeur)
 {
-	if (valeur < 0 || valeur > 255)
+	if (valeur < 0 || valeur > 700)
 		valeur = valeur;
 
 }

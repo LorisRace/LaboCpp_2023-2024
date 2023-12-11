@@ -79,57 +79,47 @@ int ImageNG :: getPixel(int x, int y) const
   int Largeur = dimension.getLargeur();
   int Hauteur = dimension.getHauteur();
 
-  for (int i = 0; i < Largeur; i++)
+
+  
+  if((x < 0 || x >= Largeur) && (y < 0 || y >= Hauteur))
   {
-    if(x < 0 || x > Largeur)
-    {
-      throw XYException ("\nLargeur invalide", x);
-      return x;
-    }
+    throw XYException ("\nDimension invalide", x, y);
+    return 0;
+  }
 
-    for(int j = 0; j < Hauteur; j++)
-    {
-      if(y < 0 || y > Hauteur)
-      {
-        throw XYException ("\nHauteur invalide", y);
-        return y;
-      }
+  if(x < 0 || x >= Largeur)
+  {
+    throw XYException ("\nPixel de largeur invalide", x);
+    return 0;
+  } 
 
-      if (matrice[x][y] < 0 || (matrice[x][y] > L_MAX && matrice[x][y] > H_MAX))
-      {
-          throw XYException ("\nMatrice invalide", matrice[x][y]);
-          //return matrice[x][y];
-      }
-    }
-  }  
+  if(y < 0 || y >= Hauteur)
+  {
+    throw XYException ("\nPixel de hauteur invalide", y);
+    return 0;
+  }
 
   return matrice[x][y];
 }
 
 void ImageNG :: setPixel(int x, int y, int val)
 {
-  for (int i = 0; i < L_MAX; i++)
+  if((x < 0 || x >= L_MAX) && (y < 0 || y >= H_MAX))
   {
-    if(val < 0 || val > L_MAX)
-    {
-      throw XYException ("\nLargeur invalide", val);
-      return;
-    }
+    throw XYException ("\nDimension invalide", x, y);
+    exit(1);
+  }
 
-    for(int j = 0; j < H_MAX; j++)
-    {
-      if(val < 0 || val > H_MAX)
-      {
-        throw XYException ("\nHauteur invalide", val);
-        return;
-      }
+  if(x < 0 || x >= L_MAX)
+  {
+    throw XYException ("\nPixel de largeur invalide", x);
+    exit(1);
+  } 
 
-      if (val < 0 || (val > L_MAX && val > H_MAX))
-      {
-          throw XYException ("\nMatrice invalide", val);
-          return;
-      }
-    }
+  if(y < 0 || y >= H_MAX)
+  {
+    throw XYException ("\nPixel de hauteur invalide", y);
+    exit(1);
   } 
 
   matrice[x][y] = val;
