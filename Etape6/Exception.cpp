@@ -3,12 +3,12 @@
 
 Exception :: Exception()
 {
-	setMessage("Exception\n");
+	setMessage("Exception");
 }
 
-Exception::Exception(const string &MessageErreur)
+Exception::Exception(string m)
 {
-	setMessage("MessageErreur");
+	setMessage(m);
 }
 
 Exception :: Exception(const Exception &exception)
@@ -21,9 +21,9 @@ Exception :: ~Exception()
 
 }
 
-void Exception :: setMessage(const string &MessageErreur)
+void Exception :: setMessage(string m)
 {
-	this->MessageErreur = MessageErreur;
+	MessageErreur = m;
 }
 
 string Exception::getMessage() const 

@@ -1,11 +1,8 @@
 #include <stdlib.h>
 #include <iostream>
-#include <set>
-#include <cstring>
-#include <stdexcept>
+#include <string>
 #include "Exception.h"
 using namespace std;
-using std :: string;
 
 
 #ifndef XYEXCEPTION_H
@@ -21,12 +18,12 @@ private:
 
 public:
 	XYException();
-	XYException(const string& message, const char ErreurValeur, const int x, const int y);
-	XYException(const string& message, const char ErreurValeur, const int valeur);
-	XYException(const string& message, const char ErreurValeur);
+	XYException(const string& message, const char e, const int x, const int y);
+	XYException(const string& message, const char e, const int valeur);
+	XYException(const string& message, const char e);
 	XYException(const XYException &xyexception);
 	~XYException();
-	void setErreurValeur(const char ErreurValeur);
+	void setErreurValeur(const char e);
 	char getErreurValeur()const;
 	void setX(const int x);
 	int getX()const;

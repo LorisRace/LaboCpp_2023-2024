@@ -193,6 +193,10 @@ void Essai3()
 {
     e.Affiche();
 }
+  catch (RGBException &e) 
+{
+    e.Affiche();
+}
   
   cout << endl;
 }

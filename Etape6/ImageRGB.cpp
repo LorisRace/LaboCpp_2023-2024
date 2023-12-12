@@ -67,22 +67,21 @@ void ImageRGB :: setBackground(const Couleur &valeur)
 
 void ImageRGB :: setPixel(int x, int y, const Couleur &valeur)
 {
-	if((x < 0 || x >= L_MAX) && (y < 0 || y >= H_MAX))
+	if((x < 0 || x >= 255) && (y < 0 || y >= 255))
   {
-    throw RGBException ();
-    exit(1);
+    throw RGBException();
   }
 
-  if(x < 0 || x >= L_MAX)
+  if(x < 0 || x >= 255)
   {
-    throw RGBException ();
-    exit(1);
+    throw RGBException();
+    
   } 
 
-  if(y < 0 || y >= H_MAX)
+  if(y < 0 || y >= 255)
   {
-    throw RGBException ();
-    exit(1);
+    throw RGBException();
+    
   }
 
 	matrice[x][y] = valeur;
@@ -94,17 +93,21 @@ Couleur ImageRGB :: getPixel(int x, int y)const
 	int Hauteur = dimension.getHauteur();
 
 	if ((x < 0 || x >= Largeur) && (y < 0 || y >= Hauteur))
+	{
 		throw RGBException();
-		exit(1);
+	}
+		
 
 	if (x < 0 || x >= Largeur)
+	{
 		throw RGBException();
-		exit(1);
+	}
+		
 
 	if (y < 0 || y >= Hauteur)
 	{
 		throw RGBException();
-		exit(1);
+		
 	}
 
 	return matrice[x][y];

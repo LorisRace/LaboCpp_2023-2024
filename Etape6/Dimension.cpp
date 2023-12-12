@@ -30,18 +30,18 @@
 		
 		if (Val <= 0)
 			throw XYException("\nLargeur invalide !", Val);
-			return;
-
+			
 		if(Val > 0)
 			Largeur = Val;
-
-		
-
 		
 	}
 
 	int Dimension :: getLargeur()const
 	{
+		if(Largeur <= 0 || Largeur >= 700)
+		{
+			throw XYException("\nLargeur invalide !", Hauteur);
+		}
 		return Largeur;
 	}
 
@@ -50,7 +50,6 @@
 		
 		if (Val <= 0)
 			throw XYException("\nLargeur invalide !", Val);
-			return;
 		
 
 		if(Val > 0)
@@ -61,6 +60,11 @@
 
 	int Dimension :: getHauteur()const
 	{
+		if(Hauteur <= 0 || Hauteur >= 700)
+		{
+			throw XYException("\nLargeur invalide !", Hauteur);
+		}
+
 		return Hauteur;
 	}
 
@@ -82,14 +86,21 @@
 	{
 		int temporaire_A, temporaire_B;
 
-		in >> temporaire_A >> temporaire_B;
+		cout << "Largeur : ";
+		fflush(stdin);
+		cin >> temporaire_A;
 
-		if(temporaire_A < 0 || temporaire_A > 700);
+		cout << "Hauteur : ";
+		fflush(stdin);
+		cin >> temporaire_B;
+
+
+		if(temporaire_A < 0 || temporaire_A > 700)
 		{
 			throw XYException("\nLargeur invalide !", temporaire_A);
 		}
 
-		if(temporaire_B < 0 || temporaire_B > 700);
+		if(temporaire_B < 0 || temporaire_B > 700)
 		{
 			throw XYException("\nLargeur invalide !", temporaire_B);
 		}

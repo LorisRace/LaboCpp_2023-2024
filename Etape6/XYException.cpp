@@ -6,34 +6,28 @@ XYException :: XYException() : Exception()
 	setMessage("\nException XY\n");
 }
 
-XYException :: XYException(const string& message, const char ErreurValeur, const int x, const int y) : Exception(message)
+XYException :: XYException(const string& message, const char e, const int x, const int y) : Exception(message)
 {
-	setErreurValeur(ErreurValeur);
+	setErreurValeur(e);
 
 	setX(x);
 
 	setY(y);
 }
 
-XYException :: XYException(const string& message, const char ErreurValeur, const int valeur) : Exception(message)
+XYException :: XYException(const string& message, const char e, const int valeur) : Exception(message)
 {
-	setErreurValeur(ErreurValeur);
+	setErreurValeur(e);
 
-	switch(ErreurValeur)
-	{
-		case 'x' : 	setX(valeur);
-				 	break;
+	setX(valeur);
 
-		case 'y' :	setY(valeur);
-					break;
+	setY(valeur);
 
-		default :	cout << "\nCommande invalide..." << endl;
-	}
 }
 
-XYException :: XYException(const string& message, const char ErreurValeur) : Exception(message)
+XYException :: XYException(const string& message, const char e) : Exception(message)
 {
-	setErreurValeur(ErreurValeur);
+	setErreurValeur(e);
 }
 
 XYException :: XYException(const XYException &xyexception) : Exception(xyexception)
@@ -50,10 +44,10 @@ XYException :: ~XYException()
 
 }
 
-void XYException :: setErreurValeur(const char ErreurValeur)
+void XYException :: setErreurValeur(const char e)
 {
 	if(ErreurValeur < 0 || ErreurValeur > 700)
-		this->ErreurValeur = ErreurValeur;
+		ErreurValeur = e;
 }
 
 char XYException :: getErreurValeur()const
@@ -65,7 +59,7 @@ void XYException:: setX(const int x)
 {
 	
 	if(x < 0 || x > 700)
-		this->x = x;
+		ErreurValeur = x;
 
 	
 }
@@ -78,7 +72,7 @@ int XYException :: getX()const
 void XYException :: setY(const int y)
 {
 	if(y < 0 || y > 700)
-		this->y = y;
+		ErreurValeur = y;
 }
 
 int XYException :: getY()const
@@ -88,31 +82,20 @@ int XYException :: getY()const
 
 void XYException :: Affiche()const
 {
-	if(ErreurValeur != 0)
+	int x, y;
+
+	if(x <= 0 || x >= 700)
 	{
-		cout<<"\nExeption dans la matrice"<< endl;
+		cout<<"\nX invalide"<< endl;
+	}
 
-		if(ErreurValeur == 'x' || ErreurValeur == 'd')
-		{
-			cout << "\nException dans Largeur X" << endl;
-			if(x != 1)
-			{
-				cout << "\nComposant Largeur X invalide" << endl;
-			}
-		}
+	if(y <= 0 || y >= 700)
+	{
+		cout<<"\nY invalide"<< endl;
+	}
 
-		if(ErreurValeur == 'd')
-		{
-			cout << "\nException Matrice" << endl;
-		}
-
-		if(ErreurValeur == 'y' || ErreurValeur == 'd')
-		{
-			cout << "\nException dans Hauteur Y" << endl;
-			if(y != 1)
-			{
-				cout << "\nComposant Hauteur Y invalide" << endl;
-			}	
-		}
+	if((x <= 0 || x >= 700) && (y <= 0 || y >= 700))
+	{
+		cout<<"\nX et Y invalides"<< endl;
 	}
 }
