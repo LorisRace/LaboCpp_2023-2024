@@ -65,24 +65,38 @@ void ImageB :: setPixel(int x, int y, bool valeur)
 {
 	if (x < 0 || x > 255)
 		throw RGBException("\nPixel de couleur largeur invalide", x);
-		return;
+		
 
 	if (y < 0 || y > 255)
 		throw RGBException("\nPixel de couleur largeur invalide", y);
-		return;
+		
 
 	matrice[x][y] = valeur;
 }
 
 bool ImageB :: getPixel(int x, int y)const
 {
-	if (x < 0 || x > 255)
-		throw RGBException("\nPixel de couleur largeur invalide", x);
-		exit(1);
+	int Largeur = dimension.getLargeur();
+	int Hauteur = dimension.getHauteur();
 
-	if (y < 0 || y > 255)
-		throw RGBException("\nPixel de couleur largeur invalide", x);
-		exit(1);
+	if ((x < 0 || x >= Largeur) && (y < 0 || y >= Hauteur))
+	{
+		throw XYException("\nDimension d'image binaire invalide", x, y);
+	}
+		
+
+	if (x < 0 || x >= Largeur)
+	{
+		throw XYException("\nLargeur d'image binaire invalide", x);
+		
+	}
+		
+
+	if (y < 0 || y >= Hauteur)
+	{
+		throw XYException("\nLargeur d'image binaire invalide", y);
+	}
+		
 
 	return matrice[x][y];
 }

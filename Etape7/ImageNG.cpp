@@ -45,8 +45,6 @@ ImageNG ::ImageNG (const ImageNG &image) : Image(image)
 ImageNG :: ~ImageNG()
 {
   
-  if(nom)
-        delete nom;
 }
 
 void ImageNG ::Affiche() const
@@ -79,57 +77,47 @@ int ImageNG :: getPixel(int x, int y) const
   int Largeur = dimension.getLargeur();
   int Hauteur = dimension.getHauteur();
 
-  for (int i = 0; i < Largeur; i++)
+
+  
+  if((x < 0 || x >= Largeur) && (y < 0 || y >= Hauteur))
   {
-    if(x < 0 || x > Largeur)
-    {
-      throw XYException ("\nLargeur invalide", x);
-      return x;
-    }
+    throw XYException ("\nDimension invalide", x, y);
+    return 0;
+  }
 
-    for(int j = 0; j < Hauteur; j++)
-    {
-      if(y < 0 || y > Hauteur)
-      {
-        throw XYException ("\nHauteur invalide", y);
-        return y;
-      }
+  if(x < 0 || x >= Largeur)
+  {
+    throw XYException ("\nPixel de largeur invalide", x);
+    return 0;
+  } 
 
-      if (matrice[x][y] < 0 || (matrice[x][y] > L_MAX && matrice[x][y] > H_MAX))
-      {
-          throw XYException ("\nMatrice invalide", matrice[x][y]);
-          //return matrice[x][y];
-      }
-    }
-  }  
+  if(y < 0 || y >= Hauteur)
+  {
+    throw XYException ("\nPixel de hauteur invalide", y);
+    return 0;
+  }
 
   return matrice[x][y];
 }
 
 void ImageNG :: setPixel(int x, int y, int val)
 {
-  for (int i = 0; i < L_MAX; i++)
+  if((x < 0 || x >= L_MAX) && (y < 0 || y >= H_MAX))
   {
-    if(val < 0 || val > L_MAX)
-    {
-      throw XYException ("\nLargeur invalide", val);
-      return;
-    }
+    throw XYException ("\nDimension invalide", x, y);
+    
+  }
 
-    for(int j = 0; j < H_MAX; j++)
-    {
-      if(val < 0 || val > H_MAX)
-      {
-        throw XYException ("\nHauteur invalide", val);
-        return;
-      }
+  if(x < 0 || x >= L_MAX)
+  {
+    throw XYException ("\nPixel de largeur invalide", x);
+    
+  } 
 
-      if (val < 0 || (val > L_MAX && val > H_MAX))
-      {
-          throw XYException ("\nMatrice invalide", val);
-          return;
-      }
-    }
+  if(y < 0 || y >= H_MAX)
+  {
+    throw XYException ("\nPixel de hauteur invalide", y);
+    
   } 
 
   matrice[x][y] = val;
@@ -138,29 +126,16 @@ void ImageNG :: setPixel(int x, int y, int val)
 
 void ImageNG :: setBackground(int val)
 {
+    if(val < 0 || val > 255)
+    {
+      cout << "aaaa" << endl;
+      throw RGBException ("\nNiveau gris invalide", val);
+    }
   
   for (int i = 0; i < L_MAX; i++)
   {
-    if(val < 0 || val > L_MAX)
-    {
-      throw XYException ("\nLargeur invalide", val);
-      return;
-    }
-
     for(int j = 0; j < H_MAX; j++)
     {
-      if(val < 0 || val > H_MAX)
-      {
-        throw XYException ("\nHauteur invalide", val);
-        return;
-      }
-
-      if (val < 0 || (val > L_MAX && val > H_MAX))
-      {
-          throw XYException ("\nMatrice invalide", val);
-          return;
-      }
-
       matrice[i][j] = val;
     }
   }  
@@ -277,10 +252,16 @@ ImageNG ImageNG :: operator-(int Nombre_Entier)
     {
       Difference.matrice[i][j] = Difference.matrice[i][j] - Nombre_Entier;
       if (Difference.matrice[i][j] > 255)
+      {
+        throw XYException("\nDifférence invalide", matrice[i][j]);
         Difference.matrice[i][j] = 255;
+      }
 
       if (Difference.matrice[i][j] < 0)
+      {
+        throw XYException("\nDifférence invalide", matrice[i][j]);
         Difference.matrice[i][j] = 0;
+      }
 
     }
   }
@@ -365,57 +346,55 @@ ImageNG ImageNG:: operator-(const ImageNG &image)
 
 bool ImageNG :: operator==(const ImageNG &image)
 {
-  if(dimension != image.dimension)
-    //throw XYException("\nDimension n'est pas égale à sa copie", dimension);
-    return false;
+  if(dimension != image.getDimension())
+    {
+      throw XYException ("\nDimension 1 pas égale à Dimension 2", 'd');
+    }
 
   for (int i = 0; i < dimension.getLargeur(); i++)
     for (int j = 0; j < dimension.getHauteur(); j++)
       if (matrice[i][j] != image.matrice[i][j])
-        throw XYException("\nMatrice 1 n'est pas égale à Matrice 2", matrice[i][j]);
+      {
         return false;
+      } 
 
   return true;
 }
 
 bool ImageNG :: operator<(const ImageNG &image)
 {
-  int SommeThis = 0;
-  int SommeCopie = 0;
+  if(dimension != image.getDimension())
+  {
+    throw XYException ("Image de dimension differente",'d');
+  }
 
   for (int i = 0; i < dimension.getLargeur(); i++)
     for (int j = 0; j < dimension.getHauteur(); j++)
     {
-      SommeThis = SommeThis + matrice[i][j];
-
-      SommeCopie = SommeCopie + image.matrice[i][j];
+      if (matrice[i][j] >= image.matrice[i][j]) 
+      {
+        return false;
+      }
     }
 
-    if(SommeThis > SommeCopie)
-    {
-      throw XYException ("\nLa somme est plus grande que sa copie", SommeThis);
-    }
-
-    return SommeThis < SommeCopie;
+  return true;
 }
 
 bool ImageNG :: operator>(const ImageNG &image)
 {
-  int SommeThis = 0;
-  int SommeCopie = 0;
+  if (dimension != image.getDimension())
+  {
+    throw XYException ("Image de dimension differente",'d');
+  }
 
   for (int i = 0; i < dimension.getLargeur(); i++)
     for (int j = 0; j < dimension.getHauteur(); j++)
     {
-      SommeThis = SommeThis + matrice[i][j];
-
-      SommeCopie = SommeCopie + image.matrice[i][j];
+      if (matrice[i][j] <= image.matrice[i][j])
+      { 
+        return false;
+      }
     }
 
-    if(SommeThis < SommeCopie)
-    {
-      throw XYException ("\nLa somme est plus petite que sa copie", SommeThis);
-    }
-
-    return SommeThis > SommeCopie;
+  return true;
 }

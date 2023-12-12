@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
-#include <set>
-#include <cstring>
-#include <stdexcept>
+#include <string>
 using namespace std;
-using std :: string;
-
 
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
@@ -18,11 +14,11 @@ protected:
 
 public:
 	Exception();
-	Exception(const string &MessageErreur);
+	Exception(string MessageErreur);
 	Exception(const Exception &exception);
 	virtual ~Exception();
     string getMessage() const;
-    void setMessage(const string &MessageErreur);
+    void setMessage(string MessageErreur);
     void Affiche()const;
 };
 
