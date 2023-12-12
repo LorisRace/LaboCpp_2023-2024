@@ -355,10 +355,8 @@ bool ImageNG :: operator==(const ImageNG &image)
     for (int j = 0; j < dimension.getHauteur(); j++)
       if (matrice[i][j] != image.matrice[i][j])
       {
-        throw XYException("\nImage 1 n'est pas égale à Image 2", matrice[i][j]);
         return false;
-      }
-        
+      } 
 
   return true;
 }
@@ -375,7 +373,6 @@ bool ImageNG :: operator<(const ImageNG &image)
     {
       if (matrice[i][j] >= image.matrice[i][j]) 
       {
-        throw XYException("\nImage 1 plus grande que Image 2", matrice[i][j]);
         return false;
       }
     }
@@ -395,7 +392,6 @@ bool ImageNG :: operator>(const ImageNG &image)
     {
       if (matrice[i][j] <= image.matrice[i][j])
       { 
-        throw XYException("\nImage 1 plus petite à Image 2", matrice[i][j]);
         return false;
       }
     }

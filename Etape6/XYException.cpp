@@ -82,20 +82,5 @@ int XYException :: getY()const
 
 void XYException :: Affiche()const
 {
-	int x, y;
-
-	if(x <= 0 || x >= 700)
-	{
-		cout<<"\nX invalide"<< endl;
-	}
-
-	if(y <= 0 || y >= 700)
-	{
-		cout<<"\nY invalide"<< endl;
-	}
-
-	if((x <= 0 || x >= 700) && (y <= 0 || y >= 700))
-	{
-		cout<<"\nX et Y invalides"<< endl;
-	}
+	Exception::Affiche();
 }
