@@ -10,15 +10,15 @@ using namespace std;
 template<class T> struct Cellule
 {
 	T valeur;
-	Cellule<T> *Suivant;
-}
+	Cellule<T> *Suivant = nullptr;
+};
 
 
 template<class T> class Liste
 {
 
 private:
-	Cellule<T> *PTete;
+	Cellule<T> *PTete = nullptr;
 
 
 public:
@@ -29,7 +29,7 @@ public:
 	int getNombreElements()const;
 	void Affiche()const;
 	void AjouteElement(const T &valeur);
-	T &getElement(int Ind);
+	T &getElement(int Ind)const;
 	T SupprimeElement(int Ind);
 	Liste &operator=(const Liste &liste);
 };

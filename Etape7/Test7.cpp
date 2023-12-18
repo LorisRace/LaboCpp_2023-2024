@@ -4,6 +4,10 @@
 #include "ArrayList.h"
 #include "Iterateur.h"
 #include "Couleur.h"
+#include "Image.h"
+#include "ImageNG.h"
+#include "ImageRGB.h"
+#include "ImageB.h"
 
 using namespace std;
 
@@ -67,18 +71,18 @@ void Essai1()
   cout << "----- 1. Test de base du template ArrayList avec des entiers --------------------------------" << endl;
   cout << "----- 1.1 Creation et gestion d'une Liste ---------------------------------------------------" << endl;
 
-  ArrayList<int> liste;
+  Liste<int> liste;
   liste.Affiche();                                       // --> ()
   cout << endl;
 
   cout << "Liste Vide ? " << liste.estVide() << endl;
   cout << "On insere 3,-2,5,-1,0 et 17..." << endl;
-  liste.insereElement(3);
-  liste.insereElement(-2);
-  liste.insereElement(5);
-  liste.insereElement(-1);
-  liste.insereElement(0);
-  liste.insereElement(17);
+  liste.AjouteElement(3);
+  liste.AjouteElement(-2);
+  liste.AjouteElement(5);
+  liste.AjouteElement(-1);
+  liste.AjouteElement(0);
+  liste.AjouteElement(17);
   cout << "Liste Vide ? " << liste.estVide() << endl;
   liste.Affiche();                                       // --> (3 -2 5 -1 0 17)
   cout << "La liste contient " << liste.getNombreElements() << " elements." << endl;
@@ -93,11 +97,11 @@ void Essai1()
   liste.Affiche();
 
   cout << "----- 1.4 On retire des elements de la Liste ------------------------------------------------" << endl;
-  cout << "On retire l'element d'indice 4 (100) : " << liste.retireElement(4) << endl;
+  cout << "On retire l'element d'indice 4 (100) : " << liste.SupprimeElement(4) << endl;
   liste.Affiche();
-  cout << "On retire l'element d'indice 0 (3)   : " << liste.retireElement(0) << endl;
+  cout << "On retire l'element d'indice 0 (3)   : " << liste.SupprimeElement(0) << endl;
   liste.Affiche();
-  cout << "On retire l'element d'indice 3 (17)  : " << liste.retireElement(3) << endl;
+  cout << "On retire l'element d'indice 3 (17)  : " << liste.SupprimeElement(3) << endl;
   liste.Affiche();
 
   cout << endl;
@@ -108,26 +112,26 @@ void Essai2()
 {
   cout << "----- 2. Test du constructeur de copie ArrayList avec des entiers ---------------------------" << endl;
   cout << "----- 2.1 Creation et gestion d'une Liste ---------------------------------------------------" << endl;
-  ArrayList<int> liste;
+  Liste<int> liste;
   liste.Affiche();                                       // --> ()
   cout << endl;
 
   cout << "On insere 3,-2,5,-1,0 et 17..." << endl;
-  liste.insereElement(3);
-  liste.insereElement(-2);
-  liste.insereElement(5);
-  liste.insereElement(-1);
-  liste.insereElement(0);
-  liste.insereElement(17);
+  liste.AjouteElement(3);
+  liste.AjouteElement(-2);
+  liste.AjouteElement(5);
+  liste.AjouteElement(-1);
+  liste.AjouteElement(0);
+  liste.AjouteElement(17);
   liste.Affiche();                                       // --> (3 -2 5 -1 0 17)
 
   cout << "----- 2.2 Test du constructeur de copie -----------------------------------------------------" << endl;
   {
-    ArrayList<int> liste2(liste);
+    Liste<int> liste2(liste);
     cout << "----> Voici la copie :" << endl;
     liste2.Affiche();
     cout << "----> On insere 50 dans la copie :" << endl; 
-    liste2.insereElement(50);
+    liste2.AjouteElement(50);
     liste2.Affiche();
     cout << "----> Destruction de la copie..." << endl;
   }
@@ -141,27 +145,27 @@ void Essai3()
 {
   cout << "----- 3. Test de l'operateur = de ArrayList avec des entiers ---------------------------------" << endl;
   cout << "----- 3.1 Creation et gestion d'une Liste --------------------------------------------------" << endl;
-  ArrayList<int> liste;
+  Liste<int> liste;
   liste.Affiche();                                       // --> ()
   cout << endl;
 
   cout << "On insere 3,-2,5,-1,0 et 17..." << endl;
-  liste.insereElement(3);
-  liste.insereElement(-2);
-  liste.insereElement(5);
-  liste.insereElement(-1);
-  liste.insereElement(0);
-  liste.insereElement(17);
+  liste.AjouteElement(3);
+  liste.AjouteElement(-2);
+  liste.AjouteElement(5);
+  liste.AjouteElement(-1);
+  liste.AjouteElement(0);
+  liste.AjouteElement(17);
   liste.Affiche();                                       // --> (3 -2 5 -1 0 17)
 
   cout << "----- 3.2 Test de l'operateur = -------------------------------------------------------------" << endl;
   {
-    ArrayList<int> liste3;
+    Liste<int> liste3;
     liste3 = liste;
     cout << "----> Voici le resultat de l'operateur = :" << endl;
     liste3.Affiche();
     cout << "----> On insere 50 dans la nouvelle liste :" << endl; 
-    liste3.insereElement(50);
+    liste3.AjouteElement(50);
     liste3.Affiche();
     cout << "----> Destruction de la nouvelle liste..." << endl;
   }
@@ -175,21 +179,21 @@ void Essai4()
 {
   cout << "----- 4. Test du template ArrayList avec des objets de la classe Couleur --------------" << endl;
   cout << "Creation  d'une ArrayList..." << endl;
-  ArrayList<Couleur> liste;
+  Liste<Couleur> liste;
   liste.Affiche();                                    
   cout << endl;
 
   cout << "On insere Couleur(128,23,89)..." << endl;
-  liste.insereElement(Couleur(128,23,89));
+  liste.AjouteElement(Couleur(128,23,89));
   liste.Affiche();
 
   cout << "On insere Couleur(100,100,100)..." << endl;
   Couleur c(100,100,100);
-  liste.insereElement(c);
+  liste.AjouteElement(c);
   liste.Affiche();
 
   cout << "On insere Couleur::ROUGE..." << endl;
-  liste.insereElement(Couleur::ROUGE);
+  liste.AjouteElement(Couleur::ROUGE);
   liste.Affiche();
   cout << "La liste contient " << liste.getNombreElements() << " elements." << endl << endl;
 
@@ -201,14 +205,14 @@ void Essai5()
 {
   cout << "----- 5. Test de l'iterateur avec une ArrayList d'entiers ------------------------" << endl;
   cout << "Creation  d'une Liste..." << endl;
-  ArrayList<int> liste;
+  Liste<int> liste;
 
   cout << "On insere 3,-2,5,-1 et 0..." << endl;
-  liste.insereElement(3);
-  liste.insereElement(-2);
-  liste.insereElement(5);
-  liste.insereElement(-1);
-  liste.insereElement(0);
+  liste.AjouteElement(3);
+  liste.AjouteElement(-2);
+  liste.AjouteElement(5);
+  liste.AjouteElement(-1);
+  liste.AjouteElement(0);
 
   cout << "On affiche grace a un iterateur..." << endl;
   Iterateur<int> it(liste);
@@ -225,7 +229,7 @@ void Essai5()
   cout << endl;
 
   cout << "On supprime l'element d'indice 3 et on re-affiche grace a l'iterateur..." << endl;
-  liste.retireElement(3);
+  liste.SupprimeElement(3);
   it.reset();
   while (!it.end())
   {
@@ -239,13 +243,13 @@ void Essai6()
 {
   cout << "----- 6. Test de l'iterateur avec une ArrayList de couleurs ---------------------" << endl;
   cout << "Creation  d'une Liste..." << endl;
-  ArrayList<Couleur> liste;
+  Liste<Couleur> liste;
   
   cout << "On insere quelques couleurs..." << endl;
-  liste.insereElement(Couleur::BLEU);
-  liste.insereElement(Couleur::BLANC);
-  liste.insereElement(Couleur(128,0,36));
-  liste.insereElement(Couleur(0,128,255));
+  liste.AjouteElement(Couleur::BLEU);
+  liste.AjouteElement(Couleur::BLANC);
+  liste.AjouteElement(Couleur(128,0,36));
+  liste.AjouteElement(Couleur(0,128,255));
 
   cout << "On affiche grace a un iterateur..." << endl;
   Iterateur<Couleur> it(liste);
@@ -257,7 +261,7 @@ void Essai6()
   cout << endl;
 
   cout << "On supprime l'element d'indice 1 et on re-affiche grace a l'iterateur..." << endl;
-  liste.retireElement(1);
+  liste.SupprimeElement(1);
   it.reset();
   while (!it.end())
   {
