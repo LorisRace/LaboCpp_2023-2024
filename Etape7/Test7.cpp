@@ -71,7 +71,7 @@ void Essai1()
   cout << "----- 1. Test de base du template ArrayList avec des entiers --------------------------------" << endl;
   cout << "----- 1.1 Creation et gestion d'une Liste ---------------------------------------------------" << endl;
 
-  Liste<int> liste;
+  ArrayList<int> liste;
   liste.Affiche();                                       // --> ()
   cout << endl;
 
@@ -108,11 +108,12 @@ void Essai1()
 }
 
 /*******************************************************************************************************/
+/*
 void Essai2()
 {
   cout << "----- 2. Test du constructeur de copie ArrayList avec des entiers ---------------------------" << endl;
   cout << "----- 2.1 Creation et gestion d'une Liste ---------------------------------------------------" << endl;
-  Liste<int> liste;
+  ArrayList<int> liste;
   liste.Affiche();                                       // --> ()
   cout << endl;
 
@@ -127,7 +128,7 @@ void Essai2()
 
   cout << "----- 2.2 Test du constructeur de copie -----------------------------------------------------" << endl;
   {
-    Liste<int> liste2(liste);
+    ArrayList<int> liste2(liste);
     cout << "----> Voici la copie :" << endl;
     liste2.Affiche();
     cout << "----> On insere 50 dans la copie :" << endl; 
@@ -141,11 +142,12 @@ void Essai2()
 }
 
 /*******************************************************************************************************/
+/*
 void Essai3()
 {
   cout << "----- 3. Test de l'operateur = de ArrayList avec des entiers ---------------------------------" << endl;
   cout << "----- 3.1 Creation et gestion d'une Liste --------------------------------------------------" << endl;
-  Liste<int> liste;
+  ArrayList<int> liste;
   liste.Affiche();                                       // --> ()
   cout << endl;
 
@@ -175,11 +177,12 @@ void Essai3()
 }
 
 /*********************************************************************************************/
+/*
 void Essai4()
 {
   cout << "----- 4. Test du template ArrayList avec des objets de la classe Couleur --------------" << endl;
   cout << "Creation  d'une ArrayList..." << endl;
-  Liste<Couleur> liste;
+  ArrayList<Couleur> liste;
   liste.Affiche();                                    
   cout << endl;
 
@@ -201,11 +204,12 @@ void Essai4()
 }
 
 /*******************************************************************************************************/
+/*
 void Essai5()
 {
   cout << "----- 5. Test de l'iterateur avec une ArrayList d'entiers ------------------------" << endl;
   cout << "Creation  d'une Liste..." << endl;
-  Liste<int> liste;
+  ArrayList<int> liste;
 
   cout << "On insere 3,-2,5,-1 et 0..." << endl;
   liste.AjouteElement(3);
@@ -239,11 +243,12 @@ void Essai5()
 }
 
 /*******************************************************************************************************/
+/*
 void Essai6()
 {
   cout << "----- 6. Test de l'iterateur avec une ArrayList de couleurs ---------------------" << endl;
   cout << "Creation  d'une Liste..." << endl;
-  Liste<Couleur> liste;
+  ArrayList<Couleur> liste;
   
   cout << "On insere quelques couleurs..." << endl;
   liste.AjouteElement(Couleur::BLEU);

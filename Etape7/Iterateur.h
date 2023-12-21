@@ -12,10 +12,10 @@ template<class T> class Iterateur
 {
 private:
 	Cellule<T> *Courant = nullptr;
-	const Liste<T> &liste;
+	const ArrayList<T> &arrayList;
 
 public:
-	Iterateur(const Liste<T> &liste);
+	Iterateur(const ArrayList<T> &ArrayList);
 	~Iterateur();
 	void reset();
 	bool end()const;
