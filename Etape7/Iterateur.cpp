@@ -2,9 +2,9 @@
 #include"Iterateur.h"
 
 template<class T>
-Iterateur<T> :: Iterateur(const ArrayList<T> &ArrayList) : ArrayList(ArrayList)
+Iterateur<T> :: Iterateur(const ArrayList<T> &liste) : ArrayList(liste)
 {
-	Courant = arrayList.PTete;
+	Courant = liste.PTete;
 }
 
 template<class T>
@@ -16,7 +16,7 @@ Iterateur<T> :: ~Iterateur()
 template<class T>
 void Iterateur<T> :: reset()
 {
-	Courant = arrayList.PTete;
+	Courant = liste.PTete;
 }
 
 template<class T>

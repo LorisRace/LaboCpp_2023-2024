@@ -26,7 +26,7 @@ private:
 
 public:
 	ArrayList();
-	ArrayList(const ArrayList &ArrayList);
+	ArrayList(const ArrayList &liste);
 	~ArrayList();
 	bool estVide()const;
 	int getNombreElements()const;
@@ -34,7 +34,7 @@ public:
 	void AjouteElement(const T &valeur);
 	T &getElement(int Ind)const;
 	T SupprimeElement(int Ind);
-	ArrayList &operator=(const ArrayList &ArrayList);
+	ArrayList &operator=(const ArrayList &liste);
 };
 
 #endif

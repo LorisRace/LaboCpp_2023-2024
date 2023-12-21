@@ -1,14 +1,13 @@
 #include <stdlib.h>
 #include <iostream>
 
+
 #include "ArrayList.h"
-#include "Iterateur.h"
 #include "Couleur.h"
 #include "Image.h"
 #include "ImageNG.h"
 #include "ImageRGB.h"
 #include "ImageB.h"
-
 using namespace std;
 
 int  Menu();
