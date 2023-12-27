@@ -21,8 +21,8 @@ Loris-Test6:	Test6.cpp Dimension.o Image.o ImageNG.o MyQT.o Couleur.o ImageRGB.o
 				g++ Test6.cpp -o Loris-Test6 MyQT.o Image.o ImageNG.o Dimension.o Couleur.o ImageRGB.o ImageB.o Exception.o ExceptionRGB.o XYException.o -lSDL -lpthread -Wl,-O1 -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Core.so /usr/lib64/libGL.so
 
 
-Loris-Test7:	Test7.o Dimension.o Image.o ImageNG.o MyQT.o Couleur.o ImageRGB.o ImageB.o Exception.o ExceptionRGB.o XYException.o ArrayList.o
-				g++ Test7.o -o Loris-Test7 MyQT.o Image.o ImageNG.o Dimension.o Couleur.o ImageRGB.o ImageB.o Exception.o ExceptionRGB.o XYException.o ArrayList.o -lSDL -lpthread -Wl,-O1 -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Core.so /usr/lib64/libGL.so
+Loris-Test7:	Test7.o Dimension.o Image.o ImageNG.o MyQT.o Couleur.o ImageRGB.o ImageB.o Exception.o ExceptionRGB.o XYException.o ArrayList.o Iterateur.o
+				g++ Test7.o -o Loris-Test7 MyQT.o Image.o ImageNG.o Dimension.o Couleur.o ImageRGB.o ImageB.o Exception.o ExceptionRGB.o XYException.o ArrayList.o Iterateur.o -lSDL -lpthread -Wl,-O1 -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtWidgets -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtCore -I. -I. -I/usr/lib64/qt5/mkspecs/linux-g++ /usr/lib64/libQt5Widgets.so /usr/lib64/libQt5Gui.so /usr/lib64/libQt5Core.so /usr/lib64/libGL.so
 
 Test7.o:		Test7.cpp
 				g++ Test7.cpp -c
@@ -62,8 +62,8 @@ XYException.o:	XYException.cpp XYException.h
 ArrayList.o:	ArrayList.cpp ArrayList.h
 				g++ -c ArrayList.cpp 
 
-#Iterateur.o:	Iterateur.cpp Iterateur.h
-#				g++ -c Iterateur.cpp
+Iterateur.o:	Iterateur.cpp Iterateur.h
+				g++ -c Iterateur.cpp
 
 clean:
 		rm -f *.o

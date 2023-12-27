@@ -6,6 +6,7 @@
 #include <iostream>
 #include <set>
 #include <cstring>
+#include "Couleur.h"
 using namespace std;
 
 
@@ -25,6 +26,7 @@ private:
 
 
 public:
+	Cellule<T> *getPTete()const;
 	ArrayList();
 	ArrayList(const ArrayList &liste);
 	~ArrayList();

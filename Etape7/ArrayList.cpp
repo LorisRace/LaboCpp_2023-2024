@@ -2,6 +2,12 @@
 #include"ArrayList.h"
 
 template<class T>
+Cellule<T>* ArrayList<T>::getPTete() const 
+{
+    return PTete;
+}
+
+template<class T>
 ArrayList<T> :: ArrayList()
 {
 	
@@ -46,8 +52,10 @@ bool ArrayList<T> :: estVide()const
 {
 	if (PTete == nullptr)
 	{
-		return PTete;
+		
 	}
+
+	return PTete;
 }
 
 template<class T>
@@ -166,6 +174,9 @@ ArrayList<T> &ArrayList<T> :: operator=(const ArrayList &liste)
     }
 	return *this;
 }
+
+template class ArrayList<int>;
+template class ArrayList<Couleur>;
 
 
 

@@ -2,9 +2,9 @@
 #include"Iterateur.h"
 
 template<class T>
-Iterateur<T> :: Iterateur(const ArrayList<T> &liste) : ArrayList(liste)
+Iterateur<T> :: Iterateur(const ArrayList<T> &liste) : liste(liste)
 {
-	Courant = liste.PTete;
+	Courant = liste.getPTete();
 }
 
 template<class T>
@@ -16,7 +16,7 @@ Iterateur<T> :: ~Iterateur()
 template<class T>
 void Iterateur<T> :: reset()
 {
-	Courant = liste.PTete;
+	Courant = liste.getPTete();
 }
 
 template<class T>
@@ -24,8 +24,10 @@ bool Iterateur<T> :: end()const
 {
 	if (Courant == nullptr)
 	{
-		return Courant;
+		
 	}
+
+	return Courant;
 }
 
 template<class T>
@@ -62,11 +64,15 @@ Iterateur<T> :: operator T()const
 	{
 		cout << "Iterateur en fin de liste" << endl;
 	}
+
+	return T();
 }
 
 template<class T>
 T &Iterateur<T> :: operator&()const
 {
+	static T ValeurDefaut;
+	
 	if (Courant != nullptr)
 	{
 		return Courant->valeur;
@@ -75,5 +81,12 @@ T &Iterateur<T> :: operator&()const
 	else
 	{
 		cout << "Iterateur en fin de liste" << endl;
+
+		
 	}
+
+	return ValeurDefaut;
 }
+
+template class Iterateur<int>;
+template class Iterateur<Couleur>;
