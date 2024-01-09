@@ -214,7 +214,7 @@ ImageNG Traitement :: Dilatation(const ImageNG &imageIn, int Taille)
 ImageNG Traitement :: Negatif(const ImageNG &imageIn)
 {
 
-   char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Seuillage", Taille);
+   char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Seuillage", 255);
 
    ImageNG imageOut(imageIn.getId(), nouveauNom, imageIn.getDimension());
 

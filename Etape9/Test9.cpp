@@ -85,7 +85,7 @@ void Essai1()
   cin.ignore();
 
   ImageB imageSeuillee;
-  imageSeuillee = Traitements::Seuillage(image,seuil);
+  imageSeuillee = Traitement::Seuillage(image,seuil);
 
   cout << "Voici l'image seuillee : " << imageSeuillee << endl; imageSeuillee.Dessine();
 }
@@ -100,7 +100,7 @@ void Essai2()
   cout << "Voici l'image de départ : " << image << endl; image.Dessine();
 
   ImageNG imageFiltree;
-  imageFiltree = Traitements::FiltreMoyenneur(image,3);
+  imageFiltree = Traitement::Moyenneur(image,3);
 
   cout << "Voici l'image filtree : " << imageFiltree << endl; imageFiltree.Dessine();
 
@@ -109,7 +109,7 @@ void Essai2()
   cout << "Voici l'image de départ : " << image << endl; image2.Dessine();
 
   ImageNG imageFiltree2;
-  imageFiltree2 = Traitements::FiltreMoyenneur(image2,11);
+  imageFiltree2 = Traitement::Moyenneur(image2,11);
 
   cout << "Voici l'image filtree : " << imageFiltree2 << endl; imageFiltree2.Dessine();
 }
@@ -129,7 +129,7 @@ void Essai3()
   cin.ignore();
 
   ImageNG imageFiltree;
-  imageFiltree = Traitements::FiltreMedian(image,taille);
+  imageFiltree = Traitement::Median(image,taille);
 
   cout << "Voici l'image filtree : " << imageFiltree << endl; imageFiltree.Dessine();
 }
@@ -149,7 +149,7 @@ void Essai4()
   cin.ignore();
 
   ImageNG imageFiltree;
-  imageFiltree = Traitements::Erosion(image,taille);
+  imageFiltree = Traitement::Erosion(image,taille);
 
   cout << "Voici l'image erodee : " << imageFiltree << endl; imageFiltree.Dessine();
 }
@@ -169,7 +169,7 @@ void Essai5()
   cin.ignore();
 
   ImageNG imageFiltree;
-  imageFiltree = Traitements::Dilatation(image,taille);
+  imageFiltree = Traitement::Dilatation(image,taille);
 
   cout << "Voici l'image dilatee : " << imageFiltree << endl; imageFiltree.Dessine();
 }
@@ -184,7 +184,7 @@ void Essai6()
   cout << "Voici l'image de départ : " << image << endl; image.Dessine();
 
   ImageNG imageResultat;
-  imageResultat = Traitements::Dilatation(image,3) - Traitements::Erosion(image,3);
+  imageResultat = Traitement::Dilatation(image,3) - Traitement::Erosion(image,3);
   imageResultat.setNom("joconde-contours");
 
   cout << "Voici l'image contours : " << imageResultat << endl; imageResultat.Dessine();
@@ -200,7 +200,7 @@ void Essai7()
   cout << "Voici l'image de départ : " << image << endl; image.Dessine();
 
   ImageNG negatif;
-  negatif = Traitements::Negatif(image);
+  negatif = Traitement::Negatif(image);
 
   cout << "Voici l'image negatif : " << negatif << endl; negatif.Dessine();
 }

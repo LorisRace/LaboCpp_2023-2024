@@ -45,7 +45,7 @@ public:
 	void Save(ofstream &fichier)const;
 	void Load(ifstream &fichier);
 
-	char* concatenerNoms(const char* nom, const char* suffixe, int taille);
+	static char* concatenerNoms(const char* nom, const char* suffixe, int taille);
 
 };
 
