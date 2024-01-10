@@ -456,5 +456,7 @@ char *ImageNG :: concatenerNoms(const char* nom, const char* suffixe, int taille
     strcat(nouveauNom, suffixe);
     sprintf(nouveauNom + strlen(nouveauNom), "%d", taille);
 
+    delete[]nouveauNom;
+
     return nouveauNom;
 }

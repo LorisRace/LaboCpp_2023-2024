@@ -151,7 +151,7 @@ ImageNG Traitement :: Erosion(const ImageNG &imageIn, int Taille)
         throw Exception("\nOn n'aime pas les pairs ici\n");
     }
 
-    char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Seuillage", Taille);
+    char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Erosion", Taille);
 
 	ImageNG imageOut(imageIn.getId(), nouveauNom, imageIn.getDimension());
 
@@ -187,7 +187,7 @@ ImageNG Traitement :: Dilatation(const ImageNG &imageIn, int Taille)
         throw Exception("\nOn n'aime pas les pairs ici\n");
     }
 
-    char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Seuillage", Taille);
+    char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Dilatation", Taille);
 
 	ImageNG imageOut(imageIn.getId(), nouveauNom, imageIn.getDimension());
 
@@ -214,7 +214,7 @@ ImageNG Traitement :: Dilatation(const ImageNG &imageIn, int Taille)
 ImageNG Traitement :: Negatif(const ImageNG &imageIn)
 {
 
-   char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Seuillage", 255);
+   char* nouveauNom = ImageNG::concatenerNoms(imageIn.getNom(), "Negatif", 255);
 
    ImageNG imageOut(imageIn.getId(), nouveauNom, imageIn.getDimension());
 
