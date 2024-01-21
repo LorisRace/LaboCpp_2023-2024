@@ -90,3 +90,4 @@ T &Iterateur<T> :: operator&()const
 
 template class Iterateur<int>;
 template class Iterateur<Couleur>;
+template class Iterateur<Image *>;

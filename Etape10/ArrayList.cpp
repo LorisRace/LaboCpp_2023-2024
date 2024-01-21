@@ -51,7 +51,7 @@ template<class T>
 bool ArrayList<T> :: estVide()const
 {
 
-	return PTete;
+	return PTete == nullptr;
 }
 
 template<class T>
@@ -173,7 +173,7 @@ ArrayList<T> &ArrayList<T> :: operator=(const ArrayList &liste)
 
 template class ArrayList<int>;
 template class ArrayList<Couleur>;
-
+template class ArrayList<Image *>;
 
 
 
