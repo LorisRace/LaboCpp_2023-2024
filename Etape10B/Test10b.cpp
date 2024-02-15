@@ -42,7 +42,7 @@ int main(int argc,char* argv[])
   Photoshop::getInstance().AjouteImage(p);
 
   cout << "Ajout image RGB \"../images/mandrill.bmp\"..." << endl;
-  //Photoshop::getInstance().AjouteImage(new ImageRGB("../images/mandrill.bmp"));
+  Photoshop::getInstance().AjouteImage(new ImageRGB("../images/mandrill.bmp"));
 
   cout << endl << "//***** Images de la biblothèque *************************************" << endl;
   Photoshop::getInstance().AfficheImages();

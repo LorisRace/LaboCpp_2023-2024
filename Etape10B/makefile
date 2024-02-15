@@ -48,4 +48,4 @@ clean:
 		rm -f *.o
 
 clobber:	clean
-		rm -f Loris-Test10a
+		rm -f Loris-Test10b
