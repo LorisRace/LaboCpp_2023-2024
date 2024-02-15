@@ -67,7 +67,7 @@ Image *Photoshop :: getImageParId(int Id)
 		}
 	}
 
-	return nullptr;
+	return images.getElement(Id);
 }
 
 void Photoshop :: SupprimeImageParIndice(int Indice)
