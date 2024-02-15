@@ -5,20 +5,20 @@
 Image :: Image()
 {
 	nom = NULL;
-    setNom ("Default");
-    setId (1);
+  setNom ("Default");
+  setId (1);
 }
 
 Image ::Image (int Id, const char *Nom) 
 {
-    nom = NULL;
+    //nom = NULL;
     setNom (Nom);
     setId (Id);
 }
 
 Image ::Image (int Id, const char *Nom, const Dimension& d) 
 {
-    nom = NULL;
+    //nom = NULL;
     setNom (Nom);
     setId (Id);
     setDimension(d);
@@ -26,7 +26,7 @@ Image ::Image (int Id, const char *Nom, const Dimension& d)
 
 Image ::Image (const Image &image)
 {
-  	nom = NULL;
+  	//nom = NULL;
     setId (image.getId());
     setNom (image.getNom());
     setDimension(image.getDimension());

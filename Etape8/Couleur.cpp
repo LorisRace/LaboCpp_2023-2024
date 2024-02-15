@@ -92,7 +92,7 @@ void Couleur :: Affiche()const
 {
 	cout <<"Bleu : " << Bleu << endl;
 	cout <<"Rouge : " << Rouge << endl;
-	cout <<"Vert : " << Bleu << endl;
+	cout <<"Vert : " << Vert << endl;
 
 }
 

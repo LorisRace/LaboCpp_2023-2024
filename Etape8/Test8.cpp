@@ -165,6 +165,7 @@ void Essai5()  // Attention : utilisez les flux bytes (read et write) !!!!
   cout << "----- 5. Test des methodes Save et Load de la classe ImageRGB ------" << endl;
   
   ImageRGB i1("../images/joconde.bmp");
+  cout<<"Test";
   cout << "i1 = " << i1 << endl; i1.Dessine();
   cout << endl;
 
