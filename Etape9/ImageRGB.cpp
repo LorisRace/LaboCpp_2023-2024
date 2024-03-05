@@ -67,18 +67,18 @@ void ImageRGB :: setBackground(const Couleur &valeur)
 
 void ImageRGB :: setPixel(int x, int y, const Couleur &valeur)
 {
-	if((x < 0 || x >= 255) && (y < 0 || y >= 255))
+	if((x < 0 || x >= 700) && (y < 0 || y >= 700))
   {
     throw RGBException();
   }
 
-  if(x < 0 || x >= 255)
+  if(x < 0 || x >= 700)
   {
     throw RGBException();
     
   } 
 
-  if(y < 0 || y >= 255)
+  if(y < 0 || y >= 700)
   {
     throw RGBException();
     

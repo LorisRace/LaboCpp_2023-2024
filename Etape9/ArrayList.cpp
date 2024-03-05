@@ -50,12 +50,7 @@ ArrayList<T> :: ~ArrayList()
 template<class T>
 bool ArrayList<T> :: estVide()const
 {
-	if (PTete == nullptr)
-	{
-		
-	}
-
-	return PTete;
+	return PTete == nullptr;
 }
 
 template<class T>
