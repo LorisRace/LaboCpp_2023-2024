@@ -62,8 +62,6 @@ class ImageNG : public Image
     void Save(ofstream &fichier)const;
     void Load(ifstream &fichier);
 
-    static char* concatenerNoms(const char* nom, const char* suffixe, int taille);
-
  
 };
 #endif
