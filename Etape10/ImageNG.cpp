@@ -444,19 +444,3 @@ void ImageNG :: Load(ifstream &fichier)
 
   delete[] Vecteur;
 }
-
-
-char *ImageNG :: concatenerNoms(const char* nom, const char* suffixe, int taille)
-{
-    int tailleNouveauNom = strlen(nom) + strlen(suffixe) + 10;
-    char* nouveauNom = new char[tailleNouveauNom];
-
-    strcpy(nouveauNom, nom);
-
-    strcat(nouveauNom, suffixe);
-    sprintf(nouveauNom + strlen(nouveauNom), "%d", taille);
-
-    delete[]nouveauNom;
-
-    return nouveauNom;
-}
