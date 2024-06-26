@@ -1131,66 +1131,244 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
     Photoshop::Operande2;
     Photoshop::Resultat;
 
-    if(Photoshop::Operande1 != nullptr)
+    if(Photoshop::Operande1 == nullptr || dynamic_cast<const ImageNG*>(Photoshop::Operande1) == nullptr)
     {
-      if(dynamic_cast<ImageNG *>(Photoshop::Operande1) != nullptr)
-      {
-        ImageNG *imageNG = dynamic_cast<ImageNG *>(Photoshop::Operande1);
 
-        if(ChoixTraitement == "Eclaircir (+val)")
+        dialogueErreur("Erreur", "Soit vous n'avez pas ajouté d'image à l'opérande 1, soit l'image choisie n'est pas une ImageNG");
+        return;
+    }
+
+    ImageNG *imageng = dynamic_cast<ImageNG*>(Photoshop::Operande1);
+
+    if(ChoixTraitement == "Eclaircir (++)")
+    {
+        int i = 10;
+        ImageNG Bis = imageng->operator++(i);
+        ImageNG *imageFinal = new ImageNG(Bis);
+        Photoshop::Resultat = imageFinal;
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Eclaircir (+val")
+    {
+        int Valeur = dialogueDemandeInt("Eclaircissement de l'image", "Veuillez entrez une valeur entière pour éclaircir l'image");
+        ImageNG Bis = imageng->operator+(Valeur);
+        ImageNG *imageFinal = new ImageNG(Bis);
+        Photoshop::Resultat = imageFinal;
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Assombrir (--)")
+    {
+        int i = -10;
+        ImageNG Bis = imageng->operator--(i);
+        ImageNG *imageFinal = new ImageNG(Bis);
+        Photoshop::Resultat = imageFinal;
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Assombrir (-val")
+    {
+        int Valeur = dialogueDemandeInt("Assombrissement de l'image", "Veuillez entrez une valeur entière pour assombrir l'image");
+        ImageNG Bis = imageng->operator+(Valeur);
+        ImageNG *imageFinal = new ImageNG(Bis);
+        Photoshop::Resultat = imageFinal;
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Comparaison (==)")
+    {
+        if(Photoshop::Operande2 == nullptr || dynamic_cast<const ImageNG*>(Photoshop::Operande2) == nullptr)
         {
-          int Valeur = dialogueDemandeInt("Eclaircissement de l'image", "De quelle valeur souhaitez-vous éclaircir l'image ?");
 
-          ImageNG Temporaire = imageNG->operator+(Valeur);
-          ImageNG *imageng = new ImageNG(Temporaire);
-          Photoshop::Resultat = imageng;
-
-          setImageNG("Resultat", dynamic_cast<ImageNG *>(Photoshop::Resultat));
+            dialogueErreur("Erreur", "Soit vous n'avez pas ajouté d'image à l'opérande 2, soit l'image choisie n'est pas une ImageNG");
+            return;
         }
 
-        else if(ChoixTraitement == "Eclaircir (++)")
+        ImageNG *imageng2 = dynamic_cast<ImageNG*>(Photoshop::Operande2);
+
+        bool Temporaire;
+
+        try
         {
-          int Valeur = 0;
-
-          ImageNG Temporaire = imageNG->operator++(Valeur);
-          ImageNG *imageng = new ImageNG(Temporaire);
-          Photoshop::Resultat = imageng;
-
-          setImageNG("Resultat", dynamic_cast<ImageNG *>(Photoshop::Resultat));
+            Temporaire = imageng->operator==(*imageng2);
         }
-      }
 
-      else if(dynamic_cast<ImageNG *>(Photoshop::Operande1) == nullptr)
-      {
-        dialogueErreur("Erreur", "Désolé, mais l'image est du mauvais type");
-        return;
-      }
+        catch(XYException &exception)
+        {
+            dialogueErreur("Erreur", "Désolé, mais les 2 images ne sont pas de la même dimension");
+            return;
+        }
+
+        setResultatBoolean(Temporaire);
     }
 
-    else if(Photoshop::Operande1 == nullptr)
+    else if(ChoixTraitement == "Comparaison (>)")
     {
-      dialogueErreur("Erreur", "Désolé, mais il n'y a aucune image à l'opérande 1");
-      return;
+        if(Photoshop::Operande2 == nullptr || dynamic_cast<const ImageNG*>(Photoshop::Operande2) == nullptr)
+        {
+
+            dialogueErreur("Erreur", "Soit vous n'avez pas ajouté d'image à l'opérande 2, soit l'image choisie n'est pas une ImageNG");
+            return;
+        }
+
+        ImageNG *imageng2 = dynamic_cast<ImageNG*>(Photoshop::Operande2);
+
+        bool Temporaire;
+
+        try
+        {
+            Temporaire = imageng->operator>(*imageng2);
+        }
+
+        catch(XYException &exception)
+        {
+            dialogueErreur("Erreur", "Désolé, mais les 2 images ne sont pas de la même dimension");
+            return;
+        }
+
+        setResultatBoolean(Temporaire);   
     }
 
-    else if(Photoshop::Operande2 != nullptr)
+    else if(ChoixTraitement == "Comparaison (<)")
     {
-      if(dynamic_cast<ImageNG *>(Photoshop::Operande2) != nullptr)
-      {
-        ImageNG *imageNG = dynamic_cast<ImageNG *>(Photoshop::Operande2);
-      }
+        if(Photoshop::Operande2 == nullptr || dynamic_cast<const ImageNG*>(Photoshop::Operande2) == nullptr)
+        {
 
-      else if(dynamic_cast<ImageNG *>(Photoshop::Operande2) == nullptr)
-      {
-        dialogueErreur("Erreur", "Désolé, mais l'image est du mauvais type");
-        return;
-      }
+            dialogueErreur("Erreur", "Soit vous n'avez pas ajouté d'image à l'opérande 2, soit l'image choisie n'est pas une ImageNG");
+            return;
+        }
+
+        ImageNG *imageng2 = dynamic_cast<ImageNG*>(Photoshop::Operande2);
+
+        bool Temporaire;
+
+        try
+        {
+            Temporaire = imageng->operator<(*imageng2);
+        }
+
+        catch(XYException &exception)
+        {
+            dialogueErreur("Erreur", "Désolé, mais les 2 images ne sont pas de la même dimension");
+            return;
+        }
+
+        setResultatBoolean(Temporaire);
     }
 
-    else if(Photoshop::Operande2 == nullptr)
+    else if(ChoixTraitement == "Différence")
     {
-      dialogueErreur("Erreur", "Désolé, mais il n'y a aucune image à l'opérande 2");
-      return;
+        if(Photoshop::Operande2 == nullptr || dynamic_cast<const ImageNG*>(Photoshop::Operande2) == nullptr)
+        {
+
+            dialogueErreur("Erreur", "Soit vous n'avez pas ajouté d'image à l'opérande 2, soit l'image choisie n'est pas une ImageNG");
+            return;
+        }
+
+        ImageNG *imageng2 = dynamic_cast<ImageNG*>(Photoshop::Operande2);
+        ImageNG Temporaire = imageng->operator-(*imageng2);
+        ImageNG *imageFinal = new ImageNG(Temporaire);
+
+        Photoshop::Resultat = imageFinal;
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
+
+    else if(ChoixTraitement == "Seuillage")
+    {
+        
+        int Valeur = dialogueDemandeInt("Seuillage", "Veuillez entrer une valeur entière pour effectuer un seuillage");
+
+        if(Valeur < 0 || Valeur > 255)
+        {
+            dialogueErreur("Erreur", "Désolé, mais la valeur du seuillage doit être comprise entre 0 et 255");
+            return;
+        }
+
+
+        ImageB Temporaire = Traitement::Seuillage(*imageng, Valeur);
+        ImageB *imageFinal = new ImageB(Temporaire);
+        Photoshop::Resultat = imageFinal;
+
+        setImageB("Résultat", dynamic_cast<ImageB*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Filtre médian")
+    {
+        int Valeur = dialogueDemandeInt("Filtre Médian", "Veuillez entrer une valeur entière pour effectuer un filtre médian");
+
+        if(Valeur %2 == 0|| Valeur < 3)
+        {
+            dialogueErreur("Erreur", "Désolé, mais la valeur du filtre médian doit être un nombre impair entier et au moins égal à 3");
+            return;
+        }
+
+        ImageNG Temporaire = Traitement::Median(*imageng, Valeur);
+        ImageNG *imageFinal = new ImageNG(Temporaire);
+        Photoshop::Resultat = imageFinal;
+
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Filtre moyenneur")
+    {
+        int Valeur = dialogueDemandeInt("Filtre Moyenneur", "Veuillez entrer une valeur entière pour effectuer un filtre moyenneur");
+
+        if(Valeur %2 == 0|| Valeur < 3)
+        {
+            dialogueErreur("Erreur", "Désolé, mais la valeur du filtre moyenneur doit être un nombre impair entier et au moins égal à 3");
+            return;
+        }
+
+        ImageNG Temporaire = Traitement::Moyenneur(*imageng, Valeur);
+        ImageNG *imageFinal = new ImageNG(Temporaire);
+        Photoshop::Resultat = imageFinal;
+
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Erosion")
+    {
+        int Valeur = dialogueDemandeInt("Erosion", "Veuillez entrer une valeur entière pour effectuer une érosion");
+
+        if(Valeur %2 == 0|| Valeur < 3)
+        {
+            dialogueErreur("Erreur", "Désolé, mais la valeur de l'érosion doit être un nombre impair entier et au moins égal à 3");
+            return;
+        }
+
+        ImageNG Temporaire = Traitement::Erosion(*imageng, Valeur);
+        ImageNG *imageFinal = new ImageNG(Temporaire);
+        Photoshop::Resultat = imageFinal;  
+
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Dilatation")
+    {
+        int Valeur = dialogueDemandeInt("Dilatation", "Veuillez entrer une valeur entière pour effectuer une dilatation");
+
+        if(Valeur %2 == 0|| Valeur < 3)
+        {
+            dialogueErreur("Erreur", "Désolé, mais la valeur de la dilatation doit être un nombre impair entier et au moins égal à 3");
+            return;
+        }
+
+        ImageNG Temporaire = Traitement::Dilatation(*imageng, Valeur);
+        ImageNG *imageFinal = new ImageNG(Temporaire);
+        Photoshop::Resultat = imageFinal;
+
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
+    else if(ChoixTraitement == "Négatif")
+    {
+        ImageNG Temporaire = Traitement::Negatif(*imageng);
+        ImageNG *imageFinal = new ImageNG(Temporaire);
+        Photoshop::Resultat = imageFinal;
+
+        setImageNG("Résultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+    }
+
 
 }
