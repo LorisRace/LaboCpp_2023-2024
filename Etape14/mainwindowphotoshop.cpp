@@ -525,14 +525,14 @@ void MainWindowPhotoShop::on_actionCharger_ImageNB_triggered()
     {
         CategorieImage = "B";
         ImageB imageb;
-        imageb.Affiche();
-        imageb.Dessine();
+        setImageB("selection", dynamic_cast<ImageB*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
     if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
         ImageRGB imagergb;
+        setImageRGB("selection", dynamic_cast<ImageRGB*>(Photoshop::getInstance().getImageParIndice(i)));
         
     }
 
@@ -540,7 +540,7 @@ void MainWindowPhotoShop::on_actionCharger_ImageNB_triggered()
     {
         CategorieImage = "NG";
         ImageNG imageng;
-        setImageNG("selection");
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::getInstance().getImageParIndice(i)));
         
     }
 
@@ -550,7 +550,7 @@ void MainWindowPhotoShop::on_actionCharger_ImageNB_triggered()
     }
 
     ajouteTupleTableImages(Id, CategorieImage, ValeursDimension, Nom);
-
+  
   }
 
 }
@@ -588,24 +588,21 @@ void MainWindowPhotoShop::on_actionCharger_ImageRGB_triggered()
     {
         CategorieImage = "B";
         ImageB imageb;
-        imageb.Affiche();
-        imageb.Dessine();
+        setImageB("selection", dynamic_cast<ImageB*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
     if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
         ImageRGB imagergb;
-        imagergb.Affiche();
-        imagergb.Dessine();
+        setImageRGB("selection", dynamic_cast<ImageRGB*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
     if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
     {
         CategorieImage = "NG";
         ImageNG imageng;
-        imageng.Affiche();
-        imageng.Dessine();
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
     else
@@ -627,7 +624,7 @@ void MainWindowPhotoShop::on_actionEnregistrer_ImageNB_triggered()
 
   int Indice = getIndiceImageSelectionnee();
 
-  if(!Indice)
+  if(Indice < 0)
   {
     dialogueErreur("Erreur","Désolé, mais aucune image n'a été sélectionée");
     return;
@@ -670,7 +667,7 @@ void MainWindowPhotoShop::on_actionEnregistrer_ImageRGB_triggered()
 
   int Indice = getIndiceImageSelectionnee();
 
-  if(!Indice)
+  if(Indice < 0)
   {
     dialogueErreur("Erreur","Désolé, mais aucune image n'a été sélectionée");
     return;
@@ -713,7 +710,7 @@ void MainWindowPhotoShop::on_actionEnregistrer_ImageB_triggered()
 
   int Indice = getIndiceImageSelectionnee();
 
-  if(!Indice)
+  if(Indice < 0)
   {
     dialogueErreur("Erreur","Désolé, mais aucune image n'a été sélectionée");
     return;
@@ -756,7 +753,7 @@ void MainWindowPhotoShop::on_actionImage_selectionn_e_triggered()
 
   int Indice = getIndiceImageSelectionnee();
 
-  if(Indice == -1)
+  if(Indice < 0)
   {
     dialogueErreur("Erreur","Désolé, mais aucune image n'a été sélectionée");
     return;
@@ -802,7 +799,6 @@ void MainWindowPhotoShop::on_actionImage_selectionn_e_triggered()
 
   }
 
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -811,7 +807,7 @@ void MainWindowPhotoShop::on_actionImage_par_id_triggered()
   // Etape 11 (TO DO)
   int Indice = dialogueDemandeInt("Appui sur le bouton repéré !!!", "Selectionnez l'identifiant de l'image à supprimer : ");
 
-  if(Indice == -1|| Photoshop::getInstance().getImageParId(Indice) == nullptr)
+  if(Indice < 0|| Photoshop::getInstance().getImageParId(Indice) == nullptr)
   {
     dialogueErreur("Erreur","Désolé, mais l'identifant n'est relié à aucune image");
     return;
@@ -971,7 +967,7 @@ void MainWindowPhotoShop::on_tableWidgetImages_itemSelectionChanged()
   // Etape 11 (TO DO)
 
   int Indice = getIndiceImageSelectionnee();
-  if(Indice == -1)
+  if(Indice < 0)
   {
     dialogueErreur("Erreur", "L'indice entré est invalide");
     return;
@@ -1023,7 +1019,7 @@ void MainWindowPhotoShop::on_pushButtonModifierNom_clicked()
   // Etape 11 (TO DO)
 
   int Indice = getIndiceImageSelectionnee();
-  if(Indice == -1)
+  if(Indice < 0)
   {
     dialogueErreur("Erreur", "L'indice entré est invalide");
   }
@@ -1291,6 +1287,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         ImageNG *imageFinal = new ImageNG(Bis);
         Photoshop::Resultat = imageFinal;
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Eclaircir (+val)")
@@ -1300,6 +1297,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         ImageNG *imageFinal = new ImageNG(Bis);
         Photoshop::Resultat = imageFinal;
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Assombrir (--)")
@@ -1309,6 +1307,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         ImageNG *imageFinal = new ImageNG(Bis);
         Photoshop::Resultat = imageFinal;
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Assombrir (-val")
@@ -1318,6 +1317,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         ImageNG *imageFinal = new ImageNG(Bis);
         Photoshop::Resultat = imageFinal;
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Comparaison (==)")
@@ -1416,6 +1416,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
 
         Photoshop::Resultat = imageFinal;
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Seuillage")
@@ -1435,6 +1436,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         Photoshop::Resultat = imageFinal;
 
         setImageB("resultat", dynamic_cast<ImageB*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Filtre médian")
@@ -1452,6 +1454,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         Photoshop::Resultat = imageFinal;
 
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Filtre moyenneur")
@@ -1469,6 +1472,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         Photoshop::Resultat = imageFinal;
 
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Erosion")
@@ -1486,6 +1490,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         Photoshop::Resultat = imageFinal;  
 
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Dilatation")
@@ -1503,6 +1508,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         Photoshop::Resultat = imageFinal;
 
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
     else if(ChoixTraitement == "Négatif")
@@ -1512,6 +1518,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         Photoshop::Resultat = imageFinal;
 
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
+        setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
 }
