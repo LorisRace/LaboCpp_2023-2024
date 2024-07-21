@@ -210,14 +210,14 @@ void Photoshop :: Charger()
 	ImageB::couleurTrue.Load(FichierSauvegarde);
 	ImageB::couleurFalse.Load(FichierSauvegarde);
 
-	int NombreImages = images.getNombreElements();
+	int NombreImages;
 	FichierSauvegarde.read((char*)&NombreImages, sizeof(int));
 
 	for(int i = 0; i < NombreImages; i++)
 	{
 		int CategorieImage;
 
-		FichierSauvegarde.read((char*)&CategorieImage, sizeof(int));
+		//FichierSauvegarde.read((char*)&CategorieImage, sizeof(int));
 
 		if(CategorieImage == 1)
 		{
