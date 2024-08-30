@@ -259,8 +259,8 @@ ImageNG ImageNG :: operator-(int Nombre_Entier)
 
       if (Difference.matrice[i][j] < 0)
       {
-        throw XYException("\nDifférence invalide", matrice[i][j]);
-        Difference.matrice[i][j] = 0;
+        /*throw XYException("\nDifférence invalide", matrice[i][j]);
+        Difference.matrice[i][j] = 0;*/
       }
 
     }

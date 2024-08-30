@@ -78,10 +78,10 @@ int Photoshop :: ImportationImage(string Fichier)
 
 		else if(CategorieImage == "RGB")
 		{
-			/*ImageRGB *imagergb = new ImageRGB;
+			ImageNG *imagergb = new ImageNG;
 			imagergb->importFromFile(CheminImage.c_str());
 			imagergb->setNom(NomImage.c_str());
-			AjouteImage(imagergb);*/
+			AjouteImage(imagergb);
 		}
 	}
 
@@ -213,7 +213,7 @@ void Photoshop :: Charger()
 	int NombreImages;
 	FichierSauvegarde.read((char*)&NombreImages, sizeof(int));
 
-	for(int i = 0; i < NombreImages; i++)
+	for(int i = -1; i != NombreImages; i++)
 	{
 		int CategorieImage;
 
@@ -226,14 +226,14 @@ void Photoshop :: Charger()
 			AjouteImage(imageNG);
 		}
 
-		if(CategorieImage == 2)
+		else if(CategorieImage == 2)
 		{
 			ImageRGB *imageRGB = new ImageRGB;
 			imageRGB->Load(FichierSauvegarde);
 			AjouteImage(imageRGB);
 		}
 
-		if(CategorieImage == 3)
+		else if(CategorieImage == 3)
 		{
 			ImageB *imageB = new ImageB;
 			imageB->Load(FichierSauvegarde);

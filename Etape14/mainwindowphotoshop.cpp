@@ -447,7 +447,7 @@ void MainWindowPhotoShop::closeEvent(QCloseEvent *event)
 
       else
       {
-          dialogueMessage("Erreur Suppression", "Une erreur est survenue lors de la suppression des données");
+          dialogueMessage("Erreur Suppression", "Il n'y avait aucune donnée à supprimer");
       }
   }
 
@@ -481,7 +481,7 @@ void MainWindowPhotoShop::on_actionQuitter_triggered()
 
       else
       {
-          dialogueMessage("Erreur Suppression", "Une erreur est survenue lors de la suppression des données");
+          dialogueMessage("Erreur Suppression", "Il n'y avait aucune donnée à supprimer");
       }
   }
 
@@ -528,7 +528,7 @@ void MainWindowPhotoShop::on_actionCharger_ImageNB_triggered()
         setImageB("selection", dynamic_cast<ImageB*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
-    if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
         ImageRGB imagergb;
@@ -536,7 +536,7 @@ void MainWindowPhotoShop::on_actionCharger_ImageNB_triggered()
         
     }
 
-    if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
     {
         CategorieImage = "NG";
         ImageNG imageng;
@@ -560,7 +560,7 @@ void MainWindowPhotoShop::on_actionCharger_ImageRGB_triggered()
 {
   // Etape 11 (TO DO)
 
-  string Fichier = dialogueDemandeFichierOuvrir("Entrez lz nom du fichier à ouvrir");
+  string Fichier = dialogueDemandeFichierOuvrir("Entrez le nom du fichier à ouvrir");
 
   if(Fichier.empty())
   {
@@ -591,14 +591,14 @@ void MainWindowPhotoShop::on_actionCharger_ImageRGB_triggered()
         setImageB("selection", dynamic_cast<ImageB*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
-    if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
         ImageRGB imagergb;
         setImageRGB("selection", dynamic_cast<ImageRGB*>(Photoshop::getInstance().getImageParIndice(i)));
     }
 
-    if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
     {
         CategorieImage = "NG";
         ImageNG imageng;
@@ -640,7 +640,7 @@ void MainWindowPhotoShop::on_actionEnregistrer_ImageNB_triggered()
     return;
   }
 
-  string NomEnregistrement = dialogueDemandeFichierEnregistrer("Sous quel nom souhaitez-vous enregistrer le fichier ? => ");
+  string NomEnregistrement = dialogueDemandeFichierEnregistrer("Sous quel nom souhaitez-vous enregistrer le fichier (exemple : test.bmp) ? => ");
 
   if(NomEnregistrement.empty())
   {
@@ -780,12 +780,12 @@ void MainWindowPhotoShop::on_actionImage_selectionn_e_triggered()
         CategorieImage = "B";
     }
 
-    if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
     }
 
-    if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
     {
         CategorieImage = "NG";
     }
@@ -821,7 +821,7 @@ void MainWindowPhotoShop::on_actionImage_par_id_triggered()
 
   for(int i = 0; Photoshop::getInstance().getImageParIndice(i) != nullptr; i++)
   {
-    Image *SelectionImage = Photoshop::getInstance().getImageParIndice(i);
+    Image *SelectionImage = Photoshop::getInstance().getImageParId(Indice);
     int Id = SelectionImage->getId();
     string Nom = SelectionImage->getNom();
     Dimension dimension = SelectionImage->getDimension();
@@ -834,12 +834,12 @@ void MainWindowPhotoShop::on_actionImage_par_id_triggered()
         CategorieImage = "B";
     }
 
-    if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
     }
 
-    if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
     {
         CategorieImage = "NG";
     }
@@ -897,13 +897,12 @@ void MainWindowPhotoShop::on_actionImporterCSV_triggered()
         return;
     }
 
-
     int Importation = Photoshop::getInstance().ImportationImage(Fichier);
     int i;
 
     videTableImages();
 
-    for(i = 0; Photoshop::getInstance().getImageParIndice(i); i++)
+    for(i = 0; Photoshop::getInstance().getImageParIndice(i) != nullptr; i++)
     {
         Image *image = Photoshop::getInstance().getImageParIndice(i);
 
@@ -932,7 +931,7 @@ void MainWindowPhotoShop::on_actionImporterCSV_triggered()
         ajouteTupleTableImages(Indice, CategorieImage, Dimensions, Nom);
     }
 
-    string MessageImportation = to_string(Importation) + "Les images ont été importées avec succès";
+    string MessageImportation = "Les " + to_string(Importation) + " images ont été importées avec succès";
     dialogueMessage("Importation d'image(s)", MessageImportation.c_str());
 }
 
@@ -985,7 +984,7 @@ void MainWindowPhotoShop::on_tableWidgetImages_itemSelectionChanged()
       setNomImage(Nom);
     }
 
-    if(ImageB *imageB = dynamic_cast<ImageB*>(Image))
+    else if(ImageB *imageB = dynamic_cast<ImageB*>(Image))
     {
       setParametresImageNG();
       setImageB("selection", imageB);
@@ -993,7 +992,7 @@ void MainWindowPhotoShop::on_tableWidgetImages_itemSelectionChanged()
       setNomImage(Nom);
     }
 
-    if(ImageRGB *imageRGB = dynamic_cast<ImageRGB*>(Image))
+    else if(ImageRGB *imageRGB = dynamic_cast<ImageRGB*>(Image))
     {
       setParametresImageNG();
       setImageRGB("selection", imageRGB);
@@ -1019,7 +1018,9 @@ void MainWindowPhotoShop::on_pushButtonModifierNom_clicked()
   // Etape 11 (TO DO)
 
   int Indice = getIndiceImageSelectionnee();
-  if(Indice < 0)
+
+  cout << "Indice sélectionné: " << Indice << endl;
+  if(Indice <= 0)
   {
     dialogueErreur("Erreur", "L'indice entré est invalide");
   }
@@ -1045,12 +1046,12 @@ void MainWindowPhotoShop::on_pushButtonModifierNom_clicked()
         CategorieImage = "B";
     }
 
-    if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageRGB*>(SelectionImage) != nullptr)
     {
         CategorieImage = "RGB";
     }
 
-    if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
+    else if(dynamic_cast<ImageNG*>(SelectionImage) != nullptr)
     {
         CategorieImage = "NG";
     }
@@ -1244,7 +1245,7 @@ void MainWindowPhotoShop::on_pushButtonResultat_clicked()
         CategorieImage = "B";
       }
 
-      ajouteTupleTableImages(Id, CategorieImage, Nom, Dimensions);
+      ajouteTupleTableImages(Id, CategorieImage, Dimensions, Nom);
     }
 
     Photoshop::Resultat = nullptr;
@@ -1282,7 +1283,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
 
     if(ChoixTraitement == "Eclaircir (++)")
     {
-        int i = 10;
+        int i = 100;
         ImageNG Bis = imageng->operator++(i);
         ImageNG *imageFinal = new ImageNG(Bis);
         Photoshop::Resultat = imageFinal;
@@ -1290,7 +1291,7 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
-    else if(ChoixTraitement == "Eclaircir (+val)")
+    else if(ChoixTraitement == "Eclaircir (+ val)")
     {
         int Valeur = dialogueDemandeInt("Eclaircissement de l'image", "Veuillez entrez une valeur entière pour éclaircir l'image");
         ImageNG Bis = imageng->operator+(Valeur);
@@ -1310,10 +1311,10 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
         setImageNG("selection", dynamic_cast<ImageNG*>(Photoshop::Resultat));
     }
 
-    else if(ChoixTraitement == "Assombrir (-val")
+    else if(ChoixTraitement == "Assombrir (- val)")
     {
         int Valeur = dialogueDemandeInt("Assombrissement de l'image", "Veuillez entrez une valeur entière pour assombrir l'image");
-        ImageNG Bis = imageng->operator+(Valeur);
+        ImageNG Bis = imageng->operator-(Valeur);
         ImageNG *imageFinal = new ImageNG(Bis);
         Photoshop::Resultat = imageFinal;
         setImageNG("resultat", dynamic_cast<ImageNG*>(Photoshop::Resultat));
@@ -1429,7 +1430,6 @@ void MainWindowPhotoShop::on_pushButtonTraitement_clicked()
             dialogueErreur("Erreur", "Désolé, mais la valeur du seuillage doit être comprise entre 0 et 255");
             return;
         }
-
 
         ImageB Temporaire = Traitement::Seuillage(*imageng, Valeur);
         ImageB *imageFinal = new ImageB(Temporaire);
