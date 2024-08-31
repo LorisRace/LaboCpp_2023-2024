@@ -78,7 +78,7 @@ int Photoshop :: ImportationImage(string Fichier)
 
 		else if(CategorieImage == "RGB")
 		{
-			ImageNG *imagergb = new ImageNG;
+			ImageRGB *imagergb = new ImageRGB;
 			imagergb->importFromFile(CheminImage.c_str());
 			imagergb->setNom(NomImage.c_str());
 			AjouteImage(imagergb);
@@ -174,24 +174,24 @@ void Photoshop :: Sauvegarder()
 
 		if(dynamic_cast<ImageNG*>(image) != nullptr)
 		{
-			int NG = 1;
-			FichierSauvegarde.write((char*)&NG, sizeof(int));
+			string NG = "NG";
+			FichierSauvegarde.write((char*)&NG, sizeof(string));
 			ImageNG *imageNG = dynamic_cast<ImageNG*>(image);
 			imageNG->Save(FichierSauvegarde);
 		}
 
 		else if(dynamic_cast<ImageRGB*>(image) != nullptr)
 		{
-			int RGB = 2;
-			FichierSauvegarde.write((char*)&RGB, sizeof(int));
+			string RGB = "RGB";
+			FichierSauvegarde.write((char*)&RGB, sizeof(string));
 			ImageRGB *imageRGB = dynamic_cast<ImageRGB*>(image);
 			imageRGB->Save(FichierSauvegarde);
 		}
 
 		if(dynamic_cast<ImageB*>(image) != nullptr)
 		{
-			int B = 3;
-			FichierSauvegarde.write((char*)&B, sizeof(int));
+			string B = "B";
+			FichierSauvegarde.write((char*)&B, sizeof(string));
 			ImageB *imageB = dynamic_cast<ImageB*>(image);
 			imageB->Save(FichierSauvegarde);
 		}
@@ -211,29 +211,29 @@ void Photoshop :: Charger()
 	ImageB::couleurFalse.Load(FichierSauvegarde);
 
 	int NombreImages;
-	FichierSauvegarde.read((char*)&NombreImages, sizeof(int));
+	//FichierSauvegarde.read((char*)&NombreImages, sizeof(int));
 
-	for(int i = -1; i != NombreImages; i++)
+	for(int i = 0; i != NombreImages; i++)
 	{
-		int CategorieImage;
+		string CategorieImage;
 
-		//FichierSauvegarde.read((char*)&CategorieImage, sizeof(int));
+		FichierSauvegarde.read((char*)&CategorieImage, sizeof(string));
 
-		if(CategorieImage == 1)
+		if(CategorieImage == "NG")
 		{
 			ImageNG *imageNG = new ImageNG;
 			imageNG->Load(FichierSauvegarde);
 			AjouteImage(imageNG);
 		}
 
-		else if(CategorieImage == 2)
+		else if(CategorieImage == "RGB")
 		{
 			ImageRGB *imageRGB = new ImageRGB;
 			imageRGB->Load(FichierSauvegarde);
 			AjouteImage(imageRGB);
 		}
 
-		else if(CategorieImage == 3)
+		else if(CategorieImage == "B")
 		{
 			ImageB *imageB = new ImageB;
 			imageB->Load(FichierSauvegarde);
